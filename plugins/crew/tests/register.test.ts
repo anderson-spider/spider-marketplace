@@ -7,7 +7,7 @@ const agents = [
 ]
 
 test('session start registers the six specialists with their models', async ($, on) => {
-  const registered: { name: string; model?: string; tools?: readonly string[] }[] = []
+  const registered: { name: string; model?: string; effort?: string | number; tools?: readonly string[] }[] = []
 
   on('agent.register', (_$, e) => (registered.push(e), { value: { agent: `crew:${e.name}` } }))
   on('session.start', (_$, e) => ({ cwd: e.cwd }))
@@ -24,6 +24,7 @@ test('session start registers the six specialists with their models', async ($, 
   ])
   expect(registered.find(a => a.name === 'architect')?.tools).not.toContain('Edit')
   expect(registered.find(a => a.name === 'architect')?.tools).toContain('Write')
+  expect(registered.find(a => a.name === 'architect')?.effort).toBe('high')
 })
 
 test('a write outside the agent\'s lane is denied, the main loop and other agents pass', async ($, on) => {

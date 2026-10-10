@@ -114,6 +114,15 @@ Registers six subagent types when a session starts, each with a fixed model and 
 | `crew:tester` | Sonnet | Read, Grep, Glob, Edit, Write, Bash | Reproduces a behavior, writes the tests, runs the suite and reports the output. Never changes production code. |
 | `crew:architect` | Opus | Read, Grep, Glob, Write, Bash | The architect: plans and reviews a design or diff for bugs, regressions and missing tests. Writes plan and review documents under `.crew/` only, never code. |
 
+Layout in the project where the agents run (unversioned, added to `.gitignore` by the skill):
+
+```
+.crew/
+  plans/<name>.md       the plan you approve
+  reviews/<name>.md     the architect's reviews
+  research/<name>.md    the research agent's findings
+```
+
 The architect can only write Markdown under `.crew/` and the tester only test files: a hook denies any other `Write` or `Edit` by those agents. Plans and reviews live in `.crew/`, which the `brainstorm` skill adds to the repository's `.gitignore` when it is not ignored yet.
 
 The plugin also ships a `brainstorm` skill that says how to plan with these agents: gather context with `code-reader` and `research` in parallel, let `architect` challenge the leading option, then write one plan before `developer` implements it.

@@ -25,6 +25,12 @@ test('designer can edit and browse, tester can run commands', () => {
   expect(by('tester')?.tools).toContain('Bash')
 })
 
+test('effort is set on purpose: architect high, reader low, the rest medium', () => {
+  expect(by('architect')?.effort).toBe('high')
+  expect(by('code-reader')?.effort).toBe('low')
+  for (const name of ['research', 'designer', 'developer', 'tester']) expect(by(name)?.effort).toBe('medium')
+})
+
 test('names are unique', () => {
   const names = SPECIALISTS.map(s => s.name)
   expect(new Set(names).size).toBe(names.length)
