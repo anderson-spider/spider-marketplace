@@ -1,6 +1,6 @@
 import { expect, test } from 'claude-code/testing'
 
-test('session start registers the four specialists with their models', async ($, on) => {
+test('session start registers the six specialists with their models', async ($, on) => {
   const registered: { name: string; model?: string; tools?: readonly string[] }[] = []
 
   on('agent.register', (_$, e) => (registered.push(e), { value: { agent: `crew:${e.name}` } }))
@@ -11,7 +11,9 @@ test('session start registers the four specialists with their models', async ($,
   expect(registered.map(a => [a.name, a.model])).toEqual([
     ['code-reader', 'haiku'],
     ['research', 'haiku'],
+    ['designer', 'sonnet'],
     ['developer', 'sonnet'],
+    ['tester', 'sonnet'],
     ['architect', 'opus'],
   ])
   expect(registered.find(a => a.name === 'architect')?.tools).not.toContain('Edit')

@@ -9,7 +9,7 @@ Marketplace of [Claude Code](https://claude.com/claude-code) plugins made by and
 | [branch-guard](plugins/branch-guard) | Holds a `git commit` or `git push` on the protected branch and shows what would go in. |
 | [chatgpt](plugins/chatgpt) | Lets Claude ask your logged-in ChatGPT, or have it generate an image, in terminal-browser, Claude in Chrome or the Claude desktop app's built-in browser, and saves the result locally. |
 | [codex-computer-use](plugins/codex-computer-use) | Routes native Mac app control through Codex computer use from the ChatGPT app instead of Claude's own computer use, asking before each new app. |
-| [crew](plugins/crew) | Registers four specialist subagents: `code-reader` and `research` on Haiku, `developer` on Sonnet, `architect` on Opus. |
+| [crew](plugins/crew) | Registers six specialist subagents: `code-reader` and `research` on Haiku; `designer`, `developer` and `tester` on Sonnet; `architect` on Opus. |
 | [tailscale](plugins/tailscale) | Lets Claude query and modify your tailnet through the Tailscale API. |
 
 ## Install
@@ -103,13 +103,15 @@ Limitations: ownership is checked for apps named as string literals in `cua.getA
 
 ## crew
 
-Registers four subagent types when a session starts, each with a fixed model and tool allowlist. Claude delegates to them through the Agent tool by their descriptions, or you can ask for one by name:
+Registers six subagent types when a session starts, each with a fixed model and tool allowlist. Claude delegates to them through the Agent tool by their descriptions, or you can ask for one by name:
 
 | Agent type | Model | Tools | Role |
 | --- | --- | --- | --- |
 | `crew:code-reader` | Haiku | Read, Grep, Glob | Finds and explains code; returns `path:line` summaries. Never edits. |
 | `crew:research` | Haiku | Read, Grep, Glob, Edit, Write, WebSearch, WebFetch, Context7 and browser tools (terminal-browser, Claude in Chrome) | Researches docs and the web, browsing pages when needed, and writes findings or documentation. Never edits source code. |
+| `crew:designer` | Sonnet | Read, Grep, Glob, Edit, Write, WebSearch, WebFetch, Context7 and browser tools | Specifies the UI and experience (layout, states, accessibility, copy) and edits styles and layout. Leaves logic and tests to the developer. |
 | `crew:developer` | Sonnet | Read, Grep, Glob, Edit, Write, Bash | Implements a spec, adds tests and runs them. |
+| `crew:tester` | Sonnet | Read, Grep, Glob, Edit, Write, Bash | Reproduces a behavior, writes the tests, runs the suite and reports the output. Never changes production code. |
 | `crew:architect` | Opus | Read, Grep, Glob, Bash | The architect: reviews a diff and its design for bugs, regressions and missing tests. Never edits. |
 
 ## tailscale

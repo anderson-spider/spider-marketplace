@@ -7,6 +7,8 @@ test('each specialist runs on its model', () => {
   expect(by('code-reader')?.model).toBe('haiku')
   expect(by('research')?.model).toBe('haiku')
   expect(by('developer')?.model).toBe('sonnet')
+  expect(by('designer')?.model).toBe('sonnet')
+  expect(by('tester')?.model).toBe('sonnet')
   expect(by('architect')?.model).toBe('opus')
 })
 
@@ -16,6 +18,12 @@ test('code reader and architect cannot edit files', () => {
     expect(tools).not.toContain('Edit')
     expect(tools).not.toContain('Write')
   }
+})
+
+test('designer can edit and browse, tester can run commands', () => {
+  expect(by('designer')?.tools).toContain('Edit')
+  expect(by('designer')?.tools).toContain('mcp__claude-in-chrome__navigate')
+  expect(by('tester')?.tools).toContain('Bash')
 })
 
 test('names are unique', () => {
