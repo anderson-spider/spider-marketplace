@@ -35,7 +35,7 @@ In the project where the agents run, everything they write lives in an unversion
 
 ## Brainstorm flow
 
-`.crew/` ignored (step 0) -> frame -> `code-reader` and `research` in parallel -> options (`designer` first for UI) -> `architect` challenges the leading option -> plan in `.crew/plans/`, approved by the user -> `developer`, `tester`, `architect` audit. No edits happen before the approval.
+`.crew/` ignored (step 0) -> frame -> `code-reader` and `research` in parallel -> options (`designer` first for UI) -> `architect` challenges the leading option -> plan in `.crew/plans/`, approved by the user -> recommendation of `/goal` (verifiable end), `/loop` (repeating or waiting work) or direct execution, never started by the skill -> `developer`, `tester`, `architect` audit. No edits happen before the approval.
 
 ## Checks
 

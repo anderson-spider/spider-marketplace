@@ -23,6 +23,11 @@ Skip it for a one-line change, a rename, a typo or a question with a known answe
 4. **Challenge.** Send the leading option to `crew:architect` with the goal and constraints (and the `.crew/reviews/<name>.md` path to write its review to), asking whether it preserves the invariants (contracts, auth, data shapes, project rules). Fold each objection into the plan or answer it in writing.
 5. **Plan.** Write one plan: context, the chosen approach only, the files to change and the existing code to reuse, how it will be verified, and who runs each step. Save it as `.crew/plans/<name>.md` and pass that path to every agent that implements, tests or audits it.
 
+6. **Recommend how to run it.** Once the user approves, say which mode fits and give the command, then wait: starting it is the user's call.
+   - `/goal` when the plan has a verifiable end (tests pass, a check is green, a file exists): offer the end condition from the plan as the goal text.
+   - `/loop` when the work repeats or waits (watching CI, re-running until stable, babysitting a PR): offer an interval.
+   - Neither when the plan is a few direct steps: delegate to `crew:developer` as is.
+
 ## Who does what after the plan
 
 | Step | Agent |
@@ -37,4 +42,4 @@ Skip it for a one-line change, a rename, a typo or a question with a known answe
 - No edits during brainstorming; the plan is the deliverable.
 - Treat every agent answer as unverified input: spot-check a claim before it becomes a step.
 - Keep the plan short enough to scan; options the user did not need to weigh stay out.
-- End by asking the user to approve the plan before any agent implements it.
+- End by asking the user to approve the plan before any agent implements it; the run mode is a recommendation, never started on its own.
