@@ -9,6 +9,7 @@ Marketplace of [Claude Code](https://claude.com/claude-code) plugins made by and
 | [branch-guard](plugins/branch-guard) | Holds a `git commit` or `git push` on the protected branch and shows what would go in. |
 | [chatgpt](plugins/chatgpt) | Lets Claude ask your logged-in ChatGPT, or have it generate an image, in terminal-browser, Claude in Chrome or the Claude desktop app's built-in browser, and saves the result locally. |
 | [codex-computer-use](plugins/codex-computer-use) | Routes native Mac app control through Codex computer use from the ChatGPT app instead of Claude's own computer use, asking before each new app. |
+| [specialist-agents](plugins/specialist-agents) | Registers four specialist subagents: `code-reader` and `doc-writer` on Haiku, `developer` on Sonnet, `reviewer` on Opus. |
 | [tailscale](plugins/tailscale) | Lets Claude query and modify your tailnet through the Tailscale API. |
 
 ## Install
@@ -100,6 +101,17 @@ It copies the helper to `~/.claude/mcp/codex-cu` (keeping `state/`, where the ap
 
 Limitations: ownership is checked for apps named as string literals in `cua.getApp(...)` and for the app each result reports, so an app reached through a variable is owned only after its first call; Codex refuses an action when the app changed since it was last read ("The user changed …"), so read and act in the same call.
 
+## specialist-agents
+
+Registers four subagent types when a session starts, each with a fixed model and tool allowlist. Claude delegates to them through the Agent tool by their descriptions, or you can ask for one by name:
+
+| Agent type | Model | Tools | Role |
+| --- | --- | --- | --- |
+| `specialist-agents:code-reader` | Haiku | Read, Grep, Glob | Finds and explains code; returns `path:line` summaries. Never edits. |
+| `specialist-agents:doc-writer` | Haiku | Read, Grep, Glob, Edit, Write | Writes documentation to match existing code. |
+| `specialist-agents:developer` | Sonnet | Read, Grep, Glob, Edit, Write, Bash | Implements a spec, adds tests and runs them. |
+| `specialist-agents:reviewer` | Opus | Read, Grep, Glob, Bash | Reviews a diff for bugs, regressions and missing tests. Never edits. |
+
 ## tailscale
 
 Registers two tools for Claude to talk to the Tailscale API (`https://api.tailscale.com/api/v2`), authenticated by the `TS_API_KEY` environment variable, which must be exported when Claude Code starts:
@@ -138,6 +150,8 @@ claude plugin test plugins/chatgpt
 claude plugin validate plugins/codex-computer-use
 claude plugin test plugins/codex-computer-use
 /Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node --test plugins/codex-computer-use/helper/test/*.test.mjs
+claude plugin validate plugins/specialist-agents
+claude plugin test plugins/specialist-agents
 claude plugin validate plugins/tailscale
 claude plugin test plugins/tailscale
 ```

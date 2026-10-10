@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Claude Code plugin marketplace `spider-claude-mods` (`anderson-spider/claude-mods`) with four plugins, all **function hooks mods** (an early-access Claude Code API that may change between versions). The `claude-code` module (`atom`, `read`, `Register`, `claude-code/testing`) is not on npm: Claude Code writes its typings to `plugins/*/.claude-plugin/types/` when it loads a plugin (git-ignored), and each plugin's `tsconfig.json` extends them. There is no `package.json`, build or lint. IMPORTANT: load the `plugin-authoring` skill before writing or debugging a hooks module.
+Claude Code plugin marketplace `spider-claude-mods` (`anderson-spider/claude-mods`) with five plugins, all **function hooks mods** (an early-access Claude Code API that may change between versions). The `claude-code` module (`atom`, `read`, `Register`, `claude-code/testing`) is not on npm: Claude Code writes its typings to `plugins/*/.claude-plugin/types/` when it loads a plugin (git-ignored), and each plugin's `tsconfig.json` extends them. There is no `package.json`, build or lint. IMPORTANT: load the `plugin-authoring` skill before writing or debugging a hooks module.
 
 ## Layout
 
@@ -15,6 +15,7 @@ Each plugin's details live in `plugins/<name>/AGENTS.md`, loaded when working un
 - **branch-guard**: holds a commit or push on a protected branch until the person proceeds or cancels.
 - **chatgpt**: `ask` and `image` tools driving chatgpt.com in the first browser that works.
 - **codex-computer-use**: routes native Mac app control through Codex computer use; has a `helper/` run by the ChatGPT app's `node`.
+- **specialist-agents**: registers the `code-reader`, `doc-writer`, `developer` and `reviewer` subagent types with fixed models.
 - **tailscale**: `tailscale_get` and `tailscale_write` tools over the Tailscale API.
 
 ## Commands
@@ -28,6 +29,7 @@ claude plugin test plugins/branch-guard        # runs tests/*.test.ts
 claude plugin test plugins/chatgpt             # same, for chatgpt
 claude plugin test plugins/codex-computer-use  # same, for codex-computer-use (the plugin side)
 /Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node --test plugins/codex-computer-use/helper/test/*.test.mjs   # its helper
+claude plugin test plugins/specialist-agents   # same, for specialist-agents
 claude plugin test plugins/tailscale           # same, for tailscale
 node scripts/check-consistency.mjs             # marketplace and plugin manifests agree (also run by CI)
 node scripts/check-version-bump.mjs origin/main  # a plugin with code changes bumped its version (run by CI on pull requests)
