@@ -10,7 +10,6 @@ Marketplace of [Claude Code](https://claude.com/claude-code) plugins made by and
 | [chatgpt](plugins/chatgpt) | Lets Claude ask your logged-in ChatGPT, or have it generate an image, in terminal-browser, Claude in Chrome or the Claude desktop app's built-in browser, and saves the result locally. |
 | [codex-computer-use](plugins/codex-computer-use) | Routes native Mac app control through Codex computer use from the ChatGPT app instead of Claude's own computer use, asking before each new app. |
 | [tailscale](plugins/tailscale) | Lets Claude query and modify your tailnet through the Tailscale API. |
-| [pantheon](plugins/pantheon) | Makes Claude a lead that delegates to specialist roles (code-reader, docs-reader, developer, architect, qa, ux) and council seats as native Claude subagents, with an auto-opening `/pantheon` panel for roles, activity and a session log, and a strip above the prompt with the model, context, prompt cache, usage limits and running agents. |
 
 ## Install
 
@@ -22,7 +21,6 @@ Inside Claude Code, add the marketplace and install the plugin:
 /plugin install chatgpt@spider-claude-mods
 /plugin install codex-computer-use@spider-claude-mods
 /plugin install tailscale@spider-claude-mods
-/plugin install pantheon@spider-claude-mods
 ```
 
 To use a local copy instead of GitHub, pass the folder path:
@@ -116,18 +114,6 @@ They are separate so you can allow read-only without a prompt and keep write ask
 To update the ACL without overwriting someone else's edit: do a `GET /tailnet/-/acl`, keep the response's `ETag` and pass it in `ifMatch` on the `POST /tailnet/-/acl` (the API responds 412 if the ACL changed). A string `body` that is not valid JSON is sent as HuJSON, so a policy with comments works. `DELETE /tailnet/{tailnet}`, which deletes the whole tailnet, is refused by the tool.
 
 `TS_API_KEY` must be a `tskey-api-...` key. An OAuth secret `tskey-client-...` is not valid as a Bearer without a token exchange, which the plugin does not do.
-
-## pantheon
-
-The main session delegates to native Claude subagents through the Agent tool. The `/pantheon` panel opens by itself at session start; `/pantheon` opens or focuses it and `/pantheon close` closes it. The panel keeps eight role slots in order: lead, code-reader, docs-reader, developer, architect, qa, ux and council. Parallel instances stack in their role, resumed work shows its rounds, and other subagents appear under "other agents" when present. Each instance shows its model, elapsed time, context percentage and last activity; tokens are in the Session card.
-
-The panel docks beside the terminal transcript, uses a mini view when placed inline, and adds a "Last 15 minutes" SVG timeline on desktop. Each section is a card with its own colored border, and an animated rail (110 ms) runs only while there is active work. The docked layout has rails, clocks and the pulse; mini (placed inline) has clocks and the pulse, no rails; desktop has clocks and the SVG timeline, no rails and no pulse. The panel has no configuration. Its tracking hooks only watch and pass events on unchanged. `/pantheon config` and `/pantheon doctor` report the effective configuration and ping every role. See [its README](plugins/pantheon/README.md) and [NOTICE](plugins/pantheon/NOTICE).
-
-Since 0.13.0 pantheon also draws an always-on strip above the prompt: a rounded box with the session (model, effort, working or idle, context, prompt cache, session cost, folder, branch, changed files), the 5-hour and 7-day limits as aligned bars against the clock with a pace projection ("100% in 1h40", "~68% at reset"), and a last-turn receipt (duration, agents, edits, errors, cost) that gives way to the running subagents while they work. Options (`/plugin`): **Above-prompt strip** (`abovePrompt`, on by default; off hides it) and **Pace start** (`paceStart`). The suggested next prompts of the old hud plugin are gone.
-
-flightdeck users: `/plugin uninstall flightdeck`.
-
-hud was absorbed into pantheon in 0.13.0. If hud is still installed, both strips show above the prompt; remove it with `/plugin uninstall hud`.
 
 ## Development
 
