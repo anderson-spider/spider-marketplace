@@ -5,7 +5,7 @@ const by = (name: string) => SPECIALISTS.find(s => s.name === name)
 
 test('each specialist runs on its model', () => {
   expect(by('code-reader')?.model).toBe('haiku')
-  expect(by('doc-writer')?.model).toBe('haiku')
+  expect(by('research')?.model).toBe('haiku')
   expect(by('developer')?.model).toBe('sonnet')
   expect(by('reviewer')?.model).toBe('opus')
 })

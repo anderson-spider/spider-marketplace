@@ -9,6 +9,22 @@ export type Specialist = {
 
 const READ_ONLY = ['Read', 'Grep', 'Glob'] as const
 
+// Names the session may not have connected are simply unavailable to the agent.
+const WEB = ['WebSearch', 'WebFetch', 'mcp__claude_ai_Context7__resolve-library-id', 'mcp__claude_ai_Context7__query-docs'] as const
+
+const BROWSER = [
+  'mcp__terminal-browser__open',
+  'mcp__terminal-browser__close',
+  'mcp__claude-in-chrome__tabs_context_mcp',
+  'mcp__claude-in-chrome__tabs_create_mcp',
+  'mcp__claude-in-chrome__tabs_close_mcp',
+  'mcp__claude-in-chrome__navigate',
+  'mcp__claude-in-chrome__read_page',
+  'mcp__claude-in-chrome__get_page_text',
+  'mcp__claude-in-chrome__find',
+  'mcp__claude-in-chrome__computer',
+] as const
+
 export const SPECIALISTS: readonly Specialist[] = [
   {
     name: 'code-reader',
@@ -22,14 +38,16 @@ export const SPECIALISTS: readonly Specialist[] = [
       'Never dump whole files, never edit, never guess: say what you could not find.',
   },
   {
-    name: 'doc-writer',
+    name: 'research',
     description:
-      'Writes or updates documentation (README, AGENTS.md, comments, changelogs) to match code that already exists.',
+      'Researches documentation and the web (docs sites, library references, release notes), browsing pages when needed, and writes the findings or project docs. Never edits source code.',
     model: 'haiku',
-    tools: [...READ_ONLY, 'Edit', 'Write'],
+    tools: [...READ_ONLY, 'Edit', 'Write', ...WEB, ...BROWSER],
     prompt:
-      'You are a documentation writer. Read the code first, then write or update only the documentation you were asked for, ' +
-      'matching the surrounding style and language. Describe current behavior, not history. Do not change code.',
+      'You are a researcher and documentation writer. Look things up in the project first, then in library docs and on the web, ' +
+      'opening and navigating pages in a browser when a search is not enough. Cite the source (URL or path) of every claim, ' +
+      'say what you could not confirm, and prefer current official documentation. ' +
+      'When asked to write documentation, match the surrounding style and language and describe current behavior, not history. Do not change source code.',
   },
   {
     name: 'developer',

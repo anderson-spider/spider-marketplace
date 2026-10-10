@@ -25,7 +25,7 @@
     {
       "name": "specialist-agents",
       "source": "./plugins/specialist-agents",
-      "description": "Registers four specialist subagents: code-reader and doc-writer on Haiku, developer on Sonnet, reviewer on Opus."
+      "description": "Registers four specialist subagents: code-reader and research on Haiku, developer on Sonnet, reviewer on Opus."
     },
     {
       "name": "tailscale",

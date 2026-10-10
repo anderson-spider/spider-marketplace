@@ -1,7 +1,7 @@
 {
   "name": "specialist-agents",
   "version": "0.1.0",
-  "description": "Registers four specialist subagents: code-reader and doc-writer on Haiku, developer on Sonnet, reviewer on Opus.",
+  "description": "Registers four specialist subagents: code-reader and research on Haiku, developer on Sonnet, reviewer on Opus.",
   "author": {
     "name": "anderson-spider"
   }

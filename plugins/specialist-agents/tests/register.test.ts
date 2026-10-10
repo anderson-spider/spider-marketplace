@@ -10,7 +10,7 @@ test('session start registers the four specialists with their models', async ($,
 
   expect(registered.map(a => [a.name, a.model])).toEqual([
     ['code-reader', 'haiku'],
-    ['doc-writer', 'haiku'],
+    ['research', 'haiku'],
     ['developer', 'sonnet'],
     ['reviewer', 'opus'],
   ])
