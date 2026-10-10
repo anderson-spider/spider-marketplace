@@ -1,6 +1,6 @@
-# specialist-agents
+# crew
 
-Registers four subagent types in `session.start`, each `specialist-agents:<name>` with a fixed model and tool allowlist.
+Registers four subagent types in `session.start`, each `crew:<name>` with a fixed model and tool allowlist.
 
 | Agent | Model | Tools | Role |
 | --- | --- | --- | --- |
@@ -13,3 +13,4 @@ Registers four subagent types in `session.start`, each `specialist-agents:<name>
 - Models are aliases (`haiku`, `sonnet`, `opus`), so they follow the newest model of each family.
 - `tests/agents.test.ts` checks the table; `tests/register.test.ts` runs `session.start` through the test host.
 - Browser and MCP tool names are listed explicitly (no wildcard); one a session does not have connected is unavailable to the agent.
+- Names stay short and avoid "advisor" and "architect": Flightdeck shows the type (`crew:<name>`) on a narrow card and files any type matching its `architectPattern` under its architect panel, not as a card.

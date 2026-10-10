@@ -15,7 +15,7 @@ Each plugin's details live in `plugins/<name>/AGENTS.md`, loaded when working un
 - **branch-guard**: holds a commit or push on a protected branch until the person proceeds or cancels.
 - **chatgpt**: `ask` and `image` tools driving chatgpt.com in the first browser that works.
 - **codex-computer-use**: routes native Mac app control through Codex computer use; has a `helper/` run by the ChatGPT app's `node`.
-- **specialist-agents**: registers the `code-reader`, `research`, `developer` and `reviewer` subagent types with fixed models.
+- **crew**: registers the `code-reader`, `research`, `developer` and `reviewer` subagent types with fixed models.
 - **tailscale**: `tailscale_get` and `tailscale_write` tools over the Tailscale API.
 
 ## Commands
@@ -29,7 +29,7 @@ claude plugin test plugins/branch-guard        # runs tests/*.test.ts
 claude plugin test plugins/chatgpt             # same, for chatgpt
 claude plugin test plugins/codex-computer-use  # same, for codex-computer-use (the plugin side)
 /Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node --test plugins/codex-computer-use/helper/test/*.test.mjs   # its helper
-claude plugin test plugins/specialist-agents   # same, for specialist-agents
+claude plugin test plugins/crew   # same, for crew
 claude plugin test plugins/tailscale           # same, for tailscale
 node scripts/check-consistency.mjs             # marketplace and plugin manifests agree (also run by CI)
 node scripts/check-version-bump.mjs origin/main  # a plugin with code changes bumped its version (run by CI on pull requests)

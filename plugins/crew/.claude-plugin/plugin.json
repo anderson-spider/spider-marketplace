@@ -1,5 +1,5 @@
 {
-  "name": "specialist-agents",
+  "name": "crew",
   "version": "0.1.0",
   "description": "Registers four specialist subagents: code-reader and research on Haiku, developer on Sonnet, reviewer on Opus.",
   "author": {

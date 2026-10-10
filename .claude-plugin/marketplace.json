@@ -23,8 +23,8 @@
       "description": "Routes native Mac app control through Codex computer use from the ChatGPT app, with per-app approval, one Codex session per Claude session or subagent, and /codex-cu on|off."
     },
     {
-      "name": "specialist-agents",
-      "source": "./plugins/specialist-agents",
+      "name": "crew",
+      "source": "./plugins/crew",
       "description": "Registers four specialist subagents: code-reader and research on Haiku, developer on Sonnet, reviewer on Opus."
     },
     {

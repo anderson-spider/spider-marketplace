@@ -1,4 +1,4 @@
-/** One specialist: the agent type is `specialist-agents:<name>`. */
+/** One specialist: the agent type is `crew:<name>`. */
 export type Specialist = {
   name: string
   description: string
