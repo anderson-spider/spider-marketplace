@@ -5,7 +5,6 @@ plugins/*/.claude-plugin/types/
 plugins/codex-computer-use/helper/state/
 plugins/codex-computer-use/helper/run/
 
-# superpowers output and Pantheon plans stay local
+# superpowers output stays local
 docs/superpowers/
 .superpowers/
-.pantheon/
