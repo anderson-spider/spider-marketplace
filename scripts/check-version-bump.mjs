@@ -9,7 +9,8 @@ if (!base) {
   process.exit(2)
 }
 
-const git = (...args) => execFileSync('git', args, { encoding: 'utf8' })
+// stderr is dropped: `git show` of a new plugin's manifest at the base says `fatal`, which is expected there.
+const git = (...args) => execFileSync('git', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] })
 const changed = git('diff', '--name-only', `${base}...HEAD`).split('\n').filter(Boolean)
 
 // Behavior lives in hooks/ and helper/; tests and docs do not change it.

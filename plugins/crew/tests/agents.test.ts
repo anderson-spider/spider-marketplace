@@ -12,12 +12,11 @@ test('each specialist runs on its model', () => {
   expect(by('architect')?.model).toBe('opus')
 })
 
-test('code reader and architect cannot edit files', () => {
-  for (const name of ['code-reader', 'architect']) {
-    const tools = by(name)?.tools ?? []
-    expect(tools).not.toContain('Edit')
-    expect(tools).not.toContain('Write')
-  }
+test('code reader cannot write and architect cannot edit', () => {
+  expect(by('code-reader')?.tools).not.toContain('Edit')
+  expect(by('code-reader')?.tools).not.toContain('Write')
+  expect(by('architect')?.tools).toContain('Write')
+  expect(by('architect')?.tools).not.toContain('Edit')
 })
 
 test('designer can edit and browse, tester can run commands', () => {

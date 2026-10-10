@@ -7,16 +7,21 @@ description: Plan a non-trivial change before implementing it, using the crew ag
 
 Plan first, implement later. This skill produces a plan the user can approve; it does not edit code.
 
+## When not to use
+
+Skip it for a one-line change, a rename, a typo or a question with a known answer: go straight to `crew:developer` or answer directly. Use it when the change touches several files, has more than one reasonable approach, or can break a contract.
+
 ## Flow
 
+0. **Keep the output out of git.** Everything the agents write goes in `.crew/` at the repository root. Before the first write, check `git check-ignore -q .crew`; when it is not ignored, append `.crew/` to the root `.gitignore` (create the file if missing) and tell the user in one line. Outside a git repository, just create the folder.
 1. **Frame.** Restate the goal, the constraints and how success will be checked. Ask the user only what blocks the plan, in one `AskUserQuestion`; take the conventional default for the rest and say which you took.
 2. **Gather, in parallel.** In one message, delegate the independent lookups:
    - `crew:code-reader` for where the code lives and how it works (answer as `path:line`).
    - `crew:research` for external facts: library docs, API behavior, release notes, with sources.
    Give each a self-contained question and the files or terms to start from. Skip an agent the task does not need.
 3. **Diverge.** Write two or three options with what each costs and what each risks. For anything the user sees, ask `crew:designer` for a UI spec first (layout, states, copy) and include it in the options.
-4. **Challenge.** Send the leading option to `crew:architect` with the goal and constraints, asking whether it preserves the invariants (contracts, auth, data shapes, project rules). Fold each objection into the plan or answer it in writing.
-5. **Plan.** Write one plan: context, the chosen approach only, the files to change and the existing code to reuse, how it will be verified, and who runs each step.
+4. **Challenge.** Send the leading option to `crew:architect` with the goal and constraints (and the `.crew/reviews/<name>.md` path to write its review to), asking whether it preserves the invariants (contracts, auth, data shapes, project rules). Fold each objection into the plan or answer it in writing.
+5. **Plan.** Write one plan: context, the chosen approach only, the files to change and the existing code to reuse, how it will be verified, and who runs each step. Save it as `.crew/plans/<name>.md` and pass that path to every agent that implements, tests or audits it.
 
 ## Who does what after the plan
 
@@ -25,7 +30,7 @@ Plan first, implement later. This skill produces a plan the user can approve; it
 | Implement | `crew:developer` |
 | Specify or adjust the UI | `crew:designer` |
 | Reproduce, cover with tests, run the suite | `crew:tester` |
-| Audit the diff against the plan | `crew:architect` |
+| Audit the diff against the plan (writes the review to `.crew/reviews/<name>.md`) | `crew:architect` |
 
 ## Rules
 
