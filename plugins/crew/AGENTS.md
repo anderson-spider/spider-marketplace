@@ -18,3 +18,4 @@ Registers six subagent types in `session.start`, each `crew:<name>` with a fixed
 - Names stay short and avoid "advisor" and "architect" except for `architect` itself: Flightdeck shows the type (`crew:<name>`) on a narrow card and files any type matching its `architectPattern` under its architect panel, not as a card.
 - `architect` is named so on purpose: it matches Flightdeck's default `architectPattern`, so its runs show in the ARCHITECT panel as consults, not as cards.
 - Restrictions beyond the tool list are in the prompt only: the designer leaves logic and tests alone, the tester writes only test files.
+- `skills/brainstorm/SKILL.md` tells Claude how to plan with these agents (frame, gather in parallel, diverge, challenge with `architect`, plan); keep its agent names in step with `hooks/agents.ts`.

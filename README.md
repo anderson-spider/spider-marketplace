@@ -114,6 +114,8 @@ Registers six subagent types when a session starts, each with a fixed model and 
 | `crew:tester` | Sonnet | Read, Grep, Glob, Edit, Write, Bash | Reproduces a behavior, writes the tests, runs the suite and reports the output. Never changes production code. |
 | `crew:architect` | Opus | Read, Grep, Glob, Bash | The architect: reviews a diff and its design for bugs, regressions and missing tests. Never edits. |
 
+The plugin also ships a `brainstorm` skill that says how to plan with these agents: gather context with `code-reader` and `research` in parallel, let `architect` challenge the leading option, then write one plan before `developer` implements it.
+
 ## tailscale
 
 Registers two tools for Claude to talk to the Tailscale API (`https://api.tailscale.com/api/v2`), authenticated by the `TS_API_KEY` environment variable, which must be exported when Claude Code starts:
