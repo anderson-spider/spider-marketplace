@@ -9,6 +9,7 @@ Marketplace of [Claude Code](https://claude.com/claude-code) plugins made by and
 | [branch-guard](plugins/branch-guard) | Holds a `git commit` or `git push` on the protected branch and shows what would go in. |
 | [chatgpt](plugins/chatgpt) | Lets Claude ask your logged-in ChatGPT, or have it generate an image, in terminal-browser, Claude in Chrome or the Claude desktop app's built-in browser, and saves the result locally. |
 | [codex-computer-use](plugins/codex-computer-use) | Routes native Mac app control through Codex computer use from the ChatGPT app instead of Claude's own computer use, asking before each new app. |
+| [crew](plugins/crew) | Registers six specialist subagents: `code-reader` and `research` on Haiku; `designer`, `developer` and `tester` on Sonnet; `architect` on Opus. |
 | [tailscale](plugins/tailscale) | Lets Claude query and modify your tailnet through the Tailscale API. |
 
 ## Install
@@ -100,6 +101,32 @@ It copies the helper to `~/.claude/mcp/codex-cu` (keeping `state/`, where the ap
 
 Limitations: ownership is checked for apps named as string literals in `cua.getApp(...)` and for the app each result reports, so an app reached through a variable is owned only after its first call; Codex refuses an action when the app changed since it was last read ("The user changed …"), so read and act in the same call.
 
+## crew
+
+Registers six subagent types when a session starts, each with a fixed model and tool allowlist. Claude delegates to them through the Agent tool by their descriptions, or you can ask for one by name:
+
+| Agent type | Model | Tools | Role |
+| --- | --- | --- | --- |
+| `crew:code-reader` | Haiku | Read, Grep, Glob | Finds and explains code; returns `path:line` summaries. Never edits. |
+| `crew:research` | Haiku | Read, Grep, Glob, Edit, Write, WebSearch, WebFetch, Context7 and browser tools (terminal-browser, Claude in Chrome) | Researches docs and the web, browsing pages when needed, and writes findings or documentation. Never edits source code. |
+| `crew:designer` | Sonnet | Read, Grep, Glob, Edit, Write, WebSearch, WebFetch, Context7 and browser tools | Specifies the UI and experience (layout, states, accessibility, copy) and edits styles and layout. Leaves logic and tests to the developer. |
+| `crew:developer` | Sonnet | Read, Grep, Glob, Edit, Write, Bash | Implements a spec, adds tests and runs them. |
+| `crew:tester` | Sonnet | Read, Grep, Glob, Edit, Write, Bash | Reproduces a behavior, writes the tests, runs the suite and reports the output. Never changes production code. |
+| `crew:architect` | Opus | Read, Grep, Glob, Write, Bash | The architect: plans and reviews a design or diff for bugs, regressions and missing tests. Writes plan and review documents under `.crew/` only, never code. |
+
+Layout in the project where the agents run (unversioned, added to `.gitignore` by the skill):
+
+```
+.crew/
+  plans/<name>.md       the plan you approve
+  reviews/<name>.md     the architect's reviews
+  research/<name>.md    the research agent's findings
+```
+
+The architect can only write Markdown under `.crew/` and the tester only test files: a hook denies any other `Write` or `Edit` by those agents. Plans and reviews live in `.crew/`, which the `brainstorm` skill adds to the repository's `.gitignore` when it is not ignored yet.
+
+The plugin also ships a `brainstorm` skill that says how to plan with these agents: gather context with `code-reader` and `research` in parallel, let `architect` challenge the leading option, then write one plan before `developer` implements it. Once you approve the plan, it recommends `/goal`, `/loop` or direct execution, without starting any of them.
+
 ## tailscale
 
 Registers two tools for Claude to talk to the Tailscale API (`https://api.tailscale.com/api/v2`), authenticated by the `TS_API_KEY` environment variable, which must be exported when Claude Code starts:
@@ -138,6 +165,8 @@ claude plugin test plugins/chatgpt
 claude plugin validate plugins/codex-computer-use
 claude plugin test plugins/codex-computer-use
 /Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node --test plugins/codex-computer-use/helper/test/*.test.mjs
+claude plugin validate plugins/crew
+claude plugin test plugins/crew
 claude plugin validate plugins/tailscale
 claude plugin test plugins/tailscale
 ```

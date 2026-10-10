@@ -1,0 +1,8 @@
+{
+  "name": "crew",
+  "version": "0.1.0",
+  "description": "Registers six specialist subagents: code-reader and research on Haiku; designer, developer and tester on Sonnet; architect on Opus.",
+  "author": {
+    "name": "anderson-spider"
+  }
+}
