@@ -9,7 +9,7 @@ Marketplace of [Claude Code](https://claude.com/claude-code) plugins made by and
 | [branch-guard](plugins/branch-guard) | Holds a `git commit` or `git push` on the protected branch and shows what would go in. |
 | [chatgpt](plugins/chatgpt) | Lets Claude ask your logged-in ChatGPT, or have it generate an image, in terminal-browser, Claude in Chrome or the Claude desktop app's built-in browser, and saves the result locally. |
 | [codex-computer-use](plugins/codex-computer-use) | Routes native Mac app control through Codex computer use from the ChatGPT app instead of Claude's own computer use, asking before each new app. |
-| [crew](plugins/crew) | Registers four specialist subagents: `code-reader` and `research` on Haiku, `developer` on Sonnet, `reviewer` on Opus. |
+| [crew](plugins/crew) | Registers four specialist subagents: `code-reader` and `research` on Haiku, `developer` on Sonnet, `architect` on Opus. |
 | [tailscale](plugins/tailscale) | Lets Claude query and modify your tailnet through the Tailscale API. |
 
 ## Install
@@ -110,7 +110,7 @@ Registers four subagent types when a session starts, each with a fixed model and
 | `crew:code-reader` | Haiku | Read, Grep, Glob | Finds and explains code; returns `path:line` summaries. Never edits. |
 | `crew:research` | Haiku | Read, Grep, Glob, Edit, Write, WebSearch, WebFetch, Context7 and browser tools (terminal-browser, Claude in Chrome) | Researches docs and the web, browsing pages when needed, and writes findings or documentation. Never edits source code. |
 | `crew:developer` | Sonnet | Read, Grep, Glob, Edit, Write, Bash | Implements a spec, adds tests and runs them. |
-| `crew:reviewer` | Opus | Read, Grep, Glob, Bash | Reviews a diff for bugs, regressions and missing tests. Never edits. |
+| `crew:architect` | Opus | Read, Grep, Glob, Bash | The architect: reviews a diff and its design for bugs, regressions and missing tests. Never edits. |
 
 ## tailscale
 

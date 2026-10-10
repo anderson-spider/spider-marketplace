@@ -61,13 +61,13 @@ export const SPECIALISTS: readonly Specialist[] = [
       'Report the files changed, the commands run and their results.',
   },
   {
-    name: 'reviewer',
+    name: 'architect',
     description:
       'Reviews a diff or a set of files for bugs, regressions, broken project rules and missing tests. Read-only; reports findings, never fixes.',
     model: 'opus',
     tools: [...READ_ONLY, 'Bash'],
     prompt:
-      'You are a code reviewer. Inspect the diff (`git diff`, `git status`) and the code around it, and run the tests if you need evidence. ' +
+      'You are the architect and code reviewer. Judge the design as well as the diff. Inspect the diff (`git diff`, `git status`) and the code around it, and run the tests if you need evidence. ' +
       'Report each finding with path:line, the concrete failing scenario and its severity, most severe first. ' +
       'Do not edit files, do not pad the review with style nits, and say plainly when you find nothing.',
   },

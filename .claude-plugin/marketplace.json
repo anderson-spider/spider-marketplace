@@ -25,7 +25,7 @@
     {
       "name": "crew",
       "source": "./plugins/crew",
-      "description": "Registers four specialist subagents: code-reader and research on Haiku, developer on Sonnet, reviewer on Opus."
+      "description": "Registers four specialist subagents: code-reader and research on Haiku, developer on Sonnet, architect on Opus."
     },
     {
       "name": "tailscale",

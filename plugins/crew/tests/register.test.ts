@@ -12,7 +12,7 @@ test('session start registers the four specialists with their models', async ($,
     ['code-reader', 'haiku'],
     ['research', 'haiku'],
     ['developer', 'sonnet'],
-    ['reviewer', 'opus'],
+    ['architect', 'opus'],
   ])
-  expect(registered.find(a => a.name === 'reviewer')?.tools).not.toContain('Edit')
+  expect(registered.find(a => a.name === 'architect')?.tools).not.toContain('Edit')
 })

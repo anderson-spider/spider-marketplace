@@ -7,11 +7,11 @@ test('each specialist runs on its model', () => {
   expect(by('code-reader')?.model).toBe('haiku')
   expect(by('research')?.model).toBe('haiku')
   expect(by('developer')?.model).toBe('sonnet')
-  expect(by('reviewer')?.model).toBe('opus')
+  expect(by('architect')?.model).toBe('opus')
 })
 
-test('code reader and reviewer cannot edit files', () => {
-  for (const name of ['code-reader', 'reviewer']) {
+test('code reader and architect cannot edit files', () => {
+  for (const name of ['code-reader', 'architect']) {
     const tools = by(name)?.tools ?? []
     expect(tools).not.toContain('Edit')
     expect(tools).not.toContain('Write')
